@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Time Tracking</title>
+</head>
+<body>
+<h1>Time Tracking</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Duration</th>
+    <th>Task Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>May 1, 2023</td>
+    <td>
+      <button onclick="startTimer(this)">Start</button>
+      <span class="start-time"></span>
+    </td>
+    <td>
+      <button onclick="endTimer(this)">End</button>
+      <span class="end-time"></span>
+    </td>
+    <td><span class="duration">00:00:00</span></td>
+    <td><input type="text" class="task-description"></td>
+  </tr>
+  <tr>
+    <td>May 2, 2023</td>
+    <td>
+      <button onclick="startTimer(this)">Start</button>
+      <span class="start-time"></span>
+    </td>
+    <td>
+      <button onclick="endTimer(this)">End</button>
+      <span class="end-time"></span>
+    </td>
+    <td><span class="duration">00:00:00</span></td>
+    <td><input type="text" class="task-description"></td>
+  </tr>
+  <tr>
+    <td>May 3, 2023</td>
+    <td>
+      <button onclick="startTimer(this)">Start</button>
+      <span class="start-time"></span>
+    </td>
+    <td>
+      <button onclick="endTimer(this)">End</button>
+      <span class="end-time"></span>
+    </td>
+    <td><span class="duration">00:00:00</span></td>
+    <td><input type="text" class="task-description"></td>
+  </tr>
+  <!-- add more rows for each day of the month -->
+  </tbody>
+</table>
+
+<script>
+  var timers = {};
+
+  function startTimer(button) {
+    var startTime = new Date();
+    button.nextElementSibling.innerHTML = 'Started at: ' + startTime.toLocaleTimeString();
+    button.disabled = true;
+    var durationField = button.parentNode.nextElementSibling.nextElementSibling.querySelector('.duration');
+    timers[button.parentNode.parentNode.rowIndex] = setInterval(function() {
+      var now = new Date();
+      var timeDiff = now.getTime() - startTime.getTime();
+      var hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+      var minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+      var seconds = Math.floor((timeDiff / 1000) % 60);
+      durationField.innerHTML = ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+    }, 1000);
+  }
+
+  function endTimer(button) {
+    clearInterval(timers[button.parentNode.parentNode.rowIndex]);
+    var endTime = new Date();
+    button.nextElementSibling.innerHTML = 'Ended at: ' + endTime.toLocaleTimeString();
+    button.disabled = true;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Customers</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .search-form {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<h1>Search Customers</h1>
+
+<form class="search-form" onsubmit="searchCustomers(event)">
+  <label for="search-input">Search:</label>
+  <input type="text" id="search-input" name="search-input">
+  <button type="submit">Search</button>
+</form>
+
+<table id="customer-table">
+  <tr>
+    <th>Customer ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email (Private)</th>
+    <th>Email (Business)</th>
+  </tr>
+</table>
+
+<script>
+  function searchCustomers(event) {
+    event.preventDefault();
+
+    // Fetch customer data from the server/database using AJAX or fetch API
+    // Replace the dummy data below with actual data retrieval logic
+    const searchInput = document.getElementById("search-input").value;
+
+    // Example dummy data
+    const dummyData = [
+      { customerID: 1, firstName: "John", lastName: "Doe", eMailPrivate: "john.doe@example.com", eMailBusiness: "john.doe@business.com" },
+      { customerID: 2, firstName: "Jane", lastName: "Smith", eMailPrivate: "jane.smith@example.com", eMailBusiness: "jane.smith@business.com" }
+    ];
+
+    const customerTable = document.getElementById("customer-table");
+    customerTable.innerHTML = ""; // Clear existing table rows
+
+    dummyData.forEach(customer => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+                    <td>${customer.customerID}</td>
+                    <td>${customer.firstName}</td>
+                    <td>${customer.lastName}</td>
+                    <td>${customer.eMailPrivate}</td>
+                    <td>${customer.eMailBusiness}</td>
+                `;
+      customerTable.appendChild(row);
+    });
+  }
+</script>
+</body>
+</html>
